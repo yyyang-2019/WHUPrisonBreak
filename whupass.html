@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+	<style>
+		.contentView{
+			position: absolute;
+			font-size: 14px;
+			color: #828282;
+		}
+	</style>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+		var timeLabel;
+		function makeFakePermit(){
+			document.getElementById("main1").style.display="none";
+			document.getElementById("main2").style.display="block";
+			var dw = window.screen.width;
+			timeLabel=document.getElementById("time");
+			timeLabel.style.left=dw*0.27+"px";
+			timeLabel.style.top=688*dw/1080+"px";
+			var dataLabel1 = document.getElementById("data1");
+			dataLabel1.style.left=dw*0.41+"px";
+			dataLabel1.style.top=822*dw/1080+"px";
+			dataLabel1.innerHTML=document.getElementById("input1").value;
+			var dataLabel2 = document.getElementById("data2");
+			dataLabel2.style.left=dw*0.41+"px";
+			dataLabel2.style.top=920*dw/1080+"px";
+			dataLabel2.innerHTML=document.getElementById("input2").value;
+			var dataLabel3 = document.getElementById("data3");
+			dataLabel3.style.left=dw*0.41+"px";
+			dataLabel3.style.top=1016*dw/1080+"px";
+			dataLabel3.innerHTML=document.getElementById("input3").value;
+			var dataLabel4 = document.getElementById("data4");
+			dataLabel4.style.left=dw*0.41+"px";
+			dataLabel4.style.top=1110*dw/1080+"px";
+			dataLabel4.innerHTML=document.getElementById("input4").value;
+			requestAnimationFrame(flushTime);
+			var stamp = document.getElementById("stamp");
+			stamp.style.left=dw*0.62+"px";
+			stamp.style.top=1056*dw/1080+"px";
+		}
+		function autoAddZero(text){
+			if(text.length==1){
+				return "0"+text;
+			}
+			return text;
+		}
+		function flushTime(){
+			var nowTime = new Date();
+			var nowTimeText="";
+			nowTimeText=(nowTime.getMonth()+1).toString()+"-"+autoAddZero(nowTime.getDate().toString())+" ";
+			nowTimeText=nowTimeText+autoAddZero(nowTime.getHours().toString())+":"+autoAddZero( nowTime.getMinutes().toString())+":"+autoAddZero(nowTime.getSeconds().toString())+":"+autoAddZero(Math.ceil(nowTime.getMilliseconds()/10).toString());
+			requestAnimationFrame(flushTime);
+			timeLabel.innerHTML=nowTimeText;
+		}
+    </script>
+
+</head>
+<body>
+	<div id="main1">
+	<header id="header" class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">武汉大学虚拟通行许可生成器</h1>
+			</header>
+			<br/>
+			<br/>
+			<br/>
+	<form class="mui-input-group">
+	    <div class="mui-input-row">
+	        <label>通行地点</label>
+	    <input id="input1" type="text" class="mui-input-clear" placeholder="示例:工学部文澜门">
+	    </div>
+	    <div class="mui-input-row">
+	        <label>本人姓名</label>
+	        <input id="input2" type="text" class="mui-input-clear" placeholder="示例:窦贤康">
+	    </div>
+		<div class="mui-input-row">
+		    <label>人员类别</label>
+		    <input id="input3" type="text" class="mui-input-clear" placeholder="示例:在校普通本科" value="在校普通本科">
+		</div>
+		<div class="mui-input-row">
+		    <label>单位名称</label>
+		    <input id="input4" type="text" class="mui-input-clear" placeholder="示例:电气与自动化学院">
+		</div>
+	    <div class="mui-button-row">
+	        <button type="button" class="mui-btn mui-btn-primary" onclick="makeFakePermit()" >生成虚拟通行凭证</button>
+	    </div>
+	</form>
+	</div>
+	<div id="main2" style="display: none;">
+		<img src="f.png" style="width: 100%;"/>
+		<p id="time" style="position: absolute;color: white;font-size: 22px;">1</p>
+		<p id="data1" class="contentView">2</p>
+		<p id="data2" class="contentView">3</p>
+		<p id="data3" class="contentView">4</p>
+		<p id="data4" class="contentView">5</p>
+		<img id="stamp" src="logo.png" style="width: 23%;position: absolute;">
+	</div>
+</body>
+</html>
